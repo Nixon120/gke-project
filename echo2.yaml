@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: echo2
+  name: echo2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: echo2
+  template:
+    metadata:
+      labels:
+        app: echo2
+    spec:
+      containers:
+      - image: eurogig/clust3rf8ck:0.1
+        name: echo1
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: echo2
+  name: echo2
+spec:
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: echo2
